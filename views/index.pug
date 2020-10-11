@@ -3,3 +3,10 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  ul
+    each art in article
+      if (art.content.parts != undefined && art.content.parts[0] != undefined)
+        li= art.id +":" + art.title + ':'
+          ul
+            each p in art.content.parts
+              li= p.content
