@@ -1,12 +1,29 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div.header
+    h1= title
+    p Welcome to #{title}
   ul
     each art in article
-      if (art.content.parts != undefined && art.content.parts[0] != undefined)
-        li= art.id +":" + art.title + ':'
+      div.mdc-card.mdc-card--outlined.article
+        if (art.content.parts != undefined && art.content.parts[0] != undefined)
+          h4= art.title
+          div.mdc-chip-set(role="grid")
+            if (art.nlp.namedentities.PERSON != undefined)
+              each l in art.nlp.namedentities.PERSON
+                div.blue.mdc-chip(role="row")
+                  div.mdc-chip__ripple
+                  span(role='gridcell')
+                    span.mdc-chip__text=l
+            div.mdc-chip-set(role="grid")
+            if (art.nlp.phrases.Np != undefined)
+              each l in art.nlp.phrases.Np
+                div.red.mdc-chip(role="row")
+                  div.mdc-chip__ripple
+                  span(role='gridcell')
+                    span.mdc-chip__text=l
           ul
             each p in art.content.parts
               li= p.content
+  div(id='content')

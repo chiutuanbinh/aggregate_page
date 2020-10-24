@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
   let dbo = mongodb.db(config.mongo_db_name)
   dbo.collection(config.mongo_article_collection).find({'id': {"$ne" :""}}).limit(100).toArray(function(err, result){
     if (err) throw err;
-    console.log(result)  
+    // console.log(result[0].nlp)  
     articles = result;
     // z = []
     // for (a in articles){
