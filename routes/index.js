@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
+let axios = require('axios')
 let MongoClient = require('mongodb').MongoClient;
 let config = require('../modules/config');
 const assert = require('assert').strict;
@@ -12,6 +13,8 @@ MongoClient.connect(config.mongo_connection_string, {
     assert.equal(null, err);
     mongodb = db;
 })
+
+const instance = axios.create({baseURL: 'http://localhost:3000'})
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -29,5 +32,18 @@ router.get('/', function(req, res, next) {
   })
   
 });
+
+router.get('/article/:articleid', function(req, res, next){
+  let api_url = '/api/article/'+req.params.articleid
+  console.log(api_url)
+  instance.get(api_url).then(
+    function (response){
+      console.log(response.data)
+      res.render('detail', {title : response.data.title})
+    }
+  ).catch(function (err){
+    console.log(err)
+  })
+})
 
 module.exports = router;

@@ -12,11 +12,12 @@ MongoClient.connect(config.mongo_connection_string, {
     mongodb = db;
 })
 
-router.get('/single/:articleid', function(req, res, next){
+router.get('/article/:articleid', function(req, res, next){
+    console.log("NANO")
     let dbo = mongodb.db(config.mongo_db_name)
     dbo.collection(config.mongo_article_collection).findOne({id:req.params.articleid}, function(err, result) {
         if (err) throw err;
-        console.log( JSON.stringify(result))
+        // console.log( JSON.stringify(result))
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(result))
     })
