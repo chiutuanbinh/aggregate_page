@@ -39,7 +39,7 @@ router.get('/article/:articleid', function(req, res, next){
   instance.get(api_url).then(
     function (response){
       console.log(response.data)
-      res.render('detail', {title : response.data.title})
+      res.render('detail', {title : response.data.title, ner: response.data.nlp.namedentities, content: response.data.content})
     }
   ).catch(function (err){
     console.log(err)

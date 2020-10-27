@@ -4,6 +4,20 @@ block content
   .container
     .row
       .col-8
-        p.display-4=title
-        
+        .card
+        p.display-4.card-header=title
+        .card-body
+          each sen in content.parts
+            p.card-text=sen.content
       .col-4
+        br
+        button.btn.btn-outline-primary.m-1 NamedEntity
+        br
+        each ne in ner.LOCATION
+          button.btn.btn-primary(type="button").m-1=ne
+        each ne in ner.PERSON
+          button.btn.blue(type="button").m-1=ne
+        each ne in ner.ORGANIZATION
+          button(type="button" class="btn btn-danger").m-1=ne
+  .jumbotron.text-center(style="margin-bottom:0")
+    p FOOTER
